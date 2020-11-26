@@ -7,6 +7,7 @@
 .Wrapper {
   max-width: 100%;
   margin: 0 auto;
+  padding:40px;
 }
 
 .button_res {
@@ -185,9 +186,9 @@
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
-  /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient. 
+  /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient.
     for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
-    
+
   */
   background-image: url("../../../src/arrow-button.svg"),
     linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
