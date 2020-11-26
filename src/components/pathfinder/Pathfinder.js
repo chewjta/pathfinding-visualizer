@@ -279,18 +279,28 @@ const Pathfinder = () => {
   };
 
   const visualizeAstar = () => {
-    if (NODE_START_ROW && NODE_START_COL && NODE_END_ROW && NODE_END_COL)
+    if (
+      NODE_START_ROW !== null &&
+      NODE_START_COL !== null &&
+      NODE_END_ROW !== null &&
+      NODE_END_COL !== null
+    ) {
       addNeighbours(Grid);
-    const startNode = Grid[NODE_START_ROW][NODE_START_COL];
-    const endNode = Grid[NODE_END_ROW][NODE_END_COL];
-    let path = Astar(startNode, endNode);
-    visualizePath(path.visitedNodes, path.path);
+      const startNode = Grid[NODE_START_ROW][NODE_START_COL];
+      const endNode = Grid[NODE_END_ROW][NODE_END_COL];
+      let path = Astar(startNode, endNode);
+      visualizePath(path.visitedNodes, path.path);
+    }
   };
 
   const resetAll = () => {
     setGrid([]);
     setStart(false);
     setEnd(false);
+    NODE_START_ROW = null;
+    NODE_START_COL = null;
+    NODE_END_ROW = null;
+    NODE_END_COL = null;
     setTimeout(initializeGrid, 10);
   };
 
