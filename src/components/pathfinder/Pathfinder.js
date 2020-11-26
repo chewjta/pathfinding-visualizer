@@ -6,14 +6,16 @@ import "./Pathfinder.css";
 const cols = 15;
 const rows = 15;
 
-const NODE_START_ROW = 0;
-const NODE_START_COL = 0;
-const NODE_END_ROW = rows - 1;
-const NODE_END_COL = cols - 1;
+let NODE_START_ROW = null;
+let NODE_START_COL = null;
+let NODE_END_ROW = null;
+let NODE_END_COL = null;
 
 const Pathfinder = () => {
   const [Grid, setGrid] = useState([]);
   const [mousePressed, setMousePressed] = useState(false);
+  const [start, setStart] = useState(false);
+  const [end, setEnd] = useState(false);
 
   useEffect(() => {
     initializeGrid();
@@ -65,22 +67,118 @@ const Pathfinder = () => {
   };
 
   const getNewGridWithWallToggled = (Grid, row, col) => {
-    const newGrid = Grid.slice();
-    const node = newGrid[row][col];
-    const newNode = {
-      ...node,
-      isWall: !node.isWall,
-    };
-    newGrid[row][col] = newNode;
-    return newGrid;
+    // if no start node, then set this as the start node.
+    // if got start and no end node then set this as end node.
+    // if got both then set the rest to walls.
+    if (!start && !end) {
+      const newGrid = Grid.slice();
+      const node = newGrid[row][col];
+      const newNode = {
+        ...node,
+        isStart: !node.isStart,
+      };
+      newGrid[row][col] = newNode;
+      NODE_START_COL = col;
+      NODE_START_ROW = row;
+      setStart(true);
+      return newGrid;
+    }
+    if (start && !end) {
+      const newGrid = Grid.slice();
+      const node = newGrid[row][col];
+      if (node.isStart) {
+        document.getElementById(`node-${row}-${col}`).className = "node";
+        const newNode = {
+          ...node,
+          isStart: !node.isStart,
+        };
+        newGrid[row][col] = newNode;
+        NODE_START_COL = null;
+        NODE_START_ROW = null;
+        setStart(false);
+        return newGrid;
+      }
+      const newNode = {
+        ...node,
+        isEnd: !node.isEnd,
+      };
+      newGrid[row][col] = newNode;
+      NODE_END_COL = col;
+      NODE_END_ROW = row;
+      setEnd(true);
+      return newGrid;
+    }
+
+    if (!start && end) {
+      const newGrid = Grid.slice();
+      const node = newGrid[row][col];
+      if (node.isEnd) {
+        document.getElementById(`node-${row}-${col}`).className = "node";
+        const newNode = {
+          ...node,
+          isEnd: !node.isEnd,
+        };
+        newGrid[row][col] = newNode;
+        NODE_END_COL = null;
+        NODE_END_ROW = null;
+        setEnd(false);
+        return newGrid;
+      }
+      const newNode = {
+        ...node,
+        isStart: !node.isStart,
+      };
+      newGrid[row][col] = newNode;
+      NODE_START_COL = col;
+      NODE_START_ROW = row;
+      setStart(true);
+      return newGrid;
+    }
+
+    if (start && end) {
+      const newGrid = Grid.slice();
+      const node = newGrid[row][col];
+      if (node.isEnd) {
+        document.getElementById(`node-${row}-${col}`).className = "node";
+        const newNode = {
+          ...node,
+          isEnd: !node.isEnd,
+        };
+        newGrid[row][col] = newNode;
+        NODE_END_COL = null;
+        NODE_END_ROW = null;
+        setEnd(false);
+        return newGrid;
+      }
+
+      if (node.isStart) {
+        document.getElementById(`node-${row}-${col}`).className = "node";
+        const newNode = {
+          ...node,
+          isStart: !node.isStart,
+        };
+        newGrid[row][col] = newNode;
+        NODE_START_COL = null;
+        NODE_START_ROW = null;
+        setStart(false);
+        return newGrid;
+      }
+
+      const newNode = {
+        ...node,
+        isWall: !node.isWall,
+      };
+      newGrid[row][col] = newNode;
+      return newGrid;
+    }
   };
 
   //creates the spot
   function Spot(i, j) {
     this.x = i;
     this.y = j;
-    this.isStart = this.x === NODE_START_ROW && this.y === NODE_START_COL;
-    this.isEnd = this.x === NODE_END_ROW && this.y === NODE_END_COL;
+    this.isStart = false;
+    this.isEnd = false;
     this.g = 0;
     this.f = 0;
     this.h = 0;
@@ -181,16 +279,25 @@ const Pathfinder = () => {
   };
 
   const visualizeAstar = () => {
-    addNeighbours(Grid);
+    if (NODE_START_ROW && NODE_START_COL && NODE_END_ROW && NODE_END_COL)
+      addNeighbours(Grid);
     const startNode = Grid[NODE_START_ROW][NODE_START_COL];
     const endNode = Grid[NODE_END_ROW][NODE_END_COL];
     let path = Astar(startNode, endNode);
     visualizePath(path.visitedNodes, path.path);
   };
 
+  const resetAll = () => {
+    setGrid([]);
+    setStart(false);
+    setEnd(false);
+    setTimeout(initializeGrid, 10);
+  };
+
   return (
     <div className="Wrapper">
       <button onClick={visualizeAstar}>Visualize Path</button>
+      <button onClick={resetAll}>Reset</button>
       <h1>Pathfinder Component</h1>
       {gridWithNode}
     </div>
