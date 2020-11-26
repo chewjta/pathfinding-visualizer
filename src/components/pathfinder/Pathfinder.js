@@ -335,6 +335,12 @@ const Pathfinder = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            setStart(false);
+            setEnd(false);
+            NODE_START_ROW = null;
+            NODE_START_COL = null;
+            NODE_END_ROW = null;
+            NODE_END_COL = null;
             initializeGrid();
           }}
         >
@@ -373,7 +379,7 @@ const Pathfinder = () => {
             </select>
           </div>
           <div>
-            <label class="checkbox">
+            <label className="checkbox">
               <input
                 type="checkbox"
                 onChange={(e) => {
