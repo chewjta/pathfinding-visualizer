@@ -338,12 +338,13 @@ const Pathfinder = () => {
             initializeGrid();
           }}
         >
-          Columns:{" "}
+          Cols :{" "}
           <input
             type="number"
             onChange={(e) => setCols(e.target.value)}
             className="input"
           />{" "}
+          <div className="divider"></div>
           Rows:{" "}
           <input
             type="number"
@@ -386,6 +387,29 @@ const Pathfinder = () => {
               <span>Allow diagonals? (only for Astar)</span>
             </label>
           </div>
+        </div>
+        <div className="instructions">
+          Instructions:{" "}
+          <ol>
+            <li>
+              Start by choosing any cell on the grid as the starting node (
+              <span style={{ color: "green" }}>green</span>)
+            </li>
+            <li>
+              Next choose the next cell as the ending node(
+              <span style={{ color: "red" }}>red</span>)
+            </li>
+            <li>
+              Undo the selection by clicking on the start or end node cell
+            </li>
+            <li>
+              After starting and end nodes are selected, you can click and drag
+              to select desired cells as walls (
+              <span style={{ color: "black" }}>black</span>)
+            </li>
+            <li>You can also choose the algorithm to use</li>
+            <li>Click visualize path to begin</li>
+          </ol>
         </div>
       </div>
       <div className="grid-nodes">{gridWithNode}</div>
