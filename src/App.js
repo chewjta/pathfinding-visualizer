@@ -3,8 +3,7 @@ import Pathfinder from "./components/pathfinder/Pathfinder";
 
 function App() {
   return (
-    <div className>
-      <h1>Pathfinder visualizer</h1>
+    <div>
       <Pathfinder />
     </div>
   );

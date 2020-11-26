@@ -18,8 +18,8 @@ const Pathfinder = () => {
   const [mousePressed, setMousePressed] = useState(false);
   const [start, setStart] = useState(false);
   const [end, setEnd] = useState(false);
-  const [cols, setCols] = useState(20);
-  const [rows, setRows] = useState(15);
+  const [cols, setCols] = useState(10);
+  const [rows, setRows] = useState(10);
   const [formula, setFormula] = useState("astar");
 
   useEffect(() => {
@@ -321,49 +321,74 @@ const Pathfinder = () => {
 
   return (
     <div className="Wrapper">
-      <button onClick={visualizeAstar}>Visualize Path</button>
-      <button onClick={resetAll}>Reset</button>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          initializeGrid();
-        }}
-      >
-        Cols: <input type="number" onChange={(e) => setCols(e.target.value)} />
-        Rows: <input type="number" onChange={(e) => setRows(e.target.value)} />
-        <button type="submit">Set Grid</button>
-      </form>
-      <div>
-        <input
-          type="checkbox"
-          id="diagonals"
-          name="diagonals"
-          onChange={(e) => {
-            if (e.target.checked) {
-              diagonals = true;
-            } else if (!e.target.checked) {
-              diagonals = false;
-            }
-          }}
-        />
-        <label for="diagonals"> Allow diagonals? (only for Astar)</label>
+      <h1>Pathfinding Visualizer</h1>
+      <div className="controls">
+        <button onClick={visualizeAstar} className="button_viz">
+          Visualize Path
+        </button>
+        <br />
+        <button onClick={resetAll} className="button_res">
+          Reset
+        </button>
       </div>
-
-      <div>
-        <select
-          onChange={(e) => {
-            setFormula(e.target.value);
+      <div className="controls-2">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            initializeGrid();
           }}
         >
-          <option value="astar" selected>
-            Astar
-          </option>
-          <option value="dijkstra">Dijkstra</option>
-        </select>
-      </div>
+          Columns:{" "}
+          <input
+            type="number"
+            onChange={(e) => setCols(e.target.value)}
+            className="input"
+          />{" "}
+          Rows:{" "}
+          <input
+            type="number"
+            onChange={(e) => setRows(e.target.value)}
+            className="input"
+          />
+          <button type="submit" className="button_grid">
+            Set Grid
+          </button>
+        </form>
 
-      <h1>Pathfinder Component</h1>
-      {gridWithNode}
+        <div className="dropdown">
+          <div>Algorithm:</div>
+          <div className="select-algo">
+            <select
+              id="algo"
+              className="select-css"
+              onChange={(e) => {
+                setFormula(e.target.value);
+              }}
+            >
+              <option value="astar" selected>
+                Astar
+              </option>
+              <option value="dijkstra">Dijkstra</option>
+            </select>
+          </div>
+          <div>
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    diagonals = true;
+                  } else if (!e.target.checked) {
+                    diagonals = false;
+                  }
+                }}
+              />
+              <span>Allow diagonals? (only for Astar)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div className="grid-nodes">{gridWithNode}</div>
     </div>
   );
 };
