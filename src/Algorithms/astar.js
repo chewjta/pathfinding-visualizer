@@ -1,4 +1,4 @@
-function Astar(startNode, endNode) {
+function Astar(startNode, endNode, diagonals) {
   let openSet = []; // nodes to be visited
   let closedSet = []; // nodes already visited
   let path = []; // shortest path
@@ -49,7 +49,7 @@ function Astar(startNode, endNode) {
           openSet.push(neighbour);
         }
         if (newPath) {
-          neighbour.h = heuristic(neighbour, endNode);
+          neighbour.h = heuristic(neighbour, endNode, diagonals);
           neighbour.f = neighbour.g + neighbour.h;
           neighbour.previous = current;
         }
@@ -60,11 +60,14 @@ function Astar(startNode, endNode) {
   return { path, visitedNodes, error: "no path found!" };
 }
 
-function heuristic(a, b) {
-  let d = Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
-  //Euclidean heuristic
-  //   let d = Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
-  return d;
+function heuristic(a, b, diagonals) {
+  if (diagonals === true) {
+    let d = Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)); //Euclidean heuristic
+    return d;
+  } else {
+    let d = Math.abs(a.x - b.x) + Math.abs(a.y - b.y); //Manhattan heuristic
+    return d;
+  }
 }
 
 export default Astar;

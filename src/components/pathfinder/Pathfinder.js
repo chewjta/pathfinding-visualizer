@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Node from "../node/Node";
-import Astar from "../../astarAlgorithm/astar";
+import Astar from "../../Algorithms/astar";
+import {
+  dijkstra,
+  getNodesInShortestPathOrder,
+} from "../../Algorithms/dijkstra";
 import "./Pathfinder.css";
-
-const cols = 15;
-const rows = 15;
 
 let NODE_START_ROW = null;
 let NODE_START_COL = null;
 let NODE_END_ROW = null;
 let NODE_END_COL = null;
+let diagonals = false;
 
 const Pathfinder = () => {
   const [Grid, setGrid] = useState([]);
   const [mousePressed, setMousePressed] = useState(false);
   const [start, setStart] = useState(false);
   const [end, setEnd] = useState(false);
+  const [cols, setCols] = useState(20);
+  const [rows, setRows] = useState(15);
+  const [formula, setFormula] = useState("astar");
 
   useEffect(() => {
     initializeGrid();
@@ -187,7 +192,7 @@ const Pathfinder = () => {
     //   this.isWall = true;
     // }
     this.neighbours = [];
-    this.previous = undefined;
+    this.previous = null;
     //function to add surrounding neighbour nodes
     this.addNeighbours = function (grid) {
       let i = this.x;
@@ -206,20 +211,24 @@ const Pathfinder = () => {
       }
 
       //DIAGONALS
-
-      if (i > 0 && j > 0) {
-        this.neighbours.push(grid[i - 1][j - 1]);
-      }
-      if (i < rows - 1 && j > 0) {
-        this.neighbours.push(grid[i + 1][j - 1]);
-      }
-      if (i > 0 && j < cols - 1) {
-        this.neighbours.push(grid[i - 1][j + 1]);
-      }
-      if (i < rows - 1 && j < cols - 1) {
-        this.neighbours.push(grid[i + 1][j + 1]);
+      if (diagonals == true) {
+        if (i > 0 && j > 0) {
+          this.neighbours.push(grid[i - 1][j - 1]);
+        }
+        if (i < rows - 1 && j > 0) {
+          this.neighbours.push(grid[i + 1][j - 1]);
+        }
+        if (i > 0 && j < cols - 1) {
+          this.neighbours.push(grid[i - 1][j + 1]);
+        }
+        if (i < rows - 1 && j < cols - 1) {
+          this.neighbours.push(grid[i + 1][j + 1]);
+        }
       }
     };
+    // for dijkstra
+    this.distance = Infinity;
+    this.isVisited = false;
   }
 
   //grid with node
@@ -288,8 +297,14 @@ const Pathfinder = () => {
       addNeighbours(Grid);
       const startNode = Grid[NODE_START_ROW][NODE_START_COL];
       const endNode = Grid[NODE_END_ROW][NODE_END_COL];
-      let path = Astar(startNode, endNode);
-      visualizePath(path.visitedNodes, path.path);
+      if (formula === "astar") {
+        let path = Astar(startNode, endNode, diagonals);
+        visualizePath(path.visitedNodes, path.path);
+      } else if (formula === "dijkstra") {
+        const visitedNodesInOrder = dijkstra(Grid, startNode, endNode);
+        const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
+        visualizePath(visitedNodesInOrder, nodesInShortestPathOrder);
+      }
     }
   };
 
@@ -308,6 +323,45 @@ const Pathfinder = () => {
     <div className="Wrapper">
       <button onClick={visualizeAstar}>Visualize Path</button>
       <button onClick={resetAll}>Reset</button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          initializeGrid();
+        }}
+      >
+        Cols: <input type="number" onChange={(e) => setCols(e.target.value)} />
+        Rows: <input type="number" onChange={(e) => setRows(e.target.value)} />
+        <button type="submit">Set Grid</button>
+      </form>
+      <div>
+        <input
+          type="checkbox"
+          id="diagonals"
+          name="diagonals"
+          onChange={(e) => {
+            if (e.target.checked) {
+              diagonals = true;
+            } else if (!e.target.checked) {
+              diagonals = false;
+            }
+          }}
+        />
+        <label for="diagonals"> Allow diagonals? (only for Astar)</label>
+      </div>
+
+      <div>
+        <select
+          onChange={(e) => {
+            setFormula(e.target.value);
+          }}
+        >
+          <option value="astar" selected>
+            Astar
+          </option>
+          <option value="dijkstra">Dijkstra</option>
+        </select>
+      </div>
+
       <h1>Pathfinder Component</h1>
       {gridWithNode}
     </div>
