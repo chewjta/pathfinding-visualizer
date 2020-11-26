@@ -321,101 +321,103 @@ const Pathfinder = () => {
 
   return (
     <div className="Wrapper">
-      <h1>Pathfinding Visualizer</h1>
-      <div className="controls">
-        <button onClick={visualizeAstar} className="button_viz">
-          Visualize Path
-        </button>
-        <br />
-        <button onClick={resetAll} className="button_res">
-          Reset
-        </button>
-      </div>
-      <div className="controls-2">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setStart(false);
-            setEnd(false);
-            NODE_START_ROW = null;
-            NODE_START_COL = null;
-            NODE_END_ROW = null;
-            NODE_END_COL = null;
-            initializeGrid();
-          }}
-        >
-          Cols :{" "}
-          <input
-            type="number"
-            onChange={(e) => setCols(e.target.value)}
-            className="input"
-          />{" "}
-          <div className="divider"></div>
-          Rows:{" "}
-          <input
-            type="number"
-            onChange={(e) => setRows(e.target.value)}
-            className="input"
-          />
-          <button type="submit" className="button_grid">
-            Set Grid
+      <div>
+        <h1>Pathfinding Visualizer</h1>
+        <div className="controls">
+          <button onClick={visualizeAstar} className="button_viz">
+            Visualize Path
           </button>
-        </form>
-
-        <div className="dropdown">
-          <div>Algorithm:</div>
-          <div className="select-algo">
-            <select
-              id="algo"
-              className="select-css"
-              onChange={(e) => {
-                setFormula(e.target.value);
-              }}
-            >
-              <option value="astar" selected>
-                Astar
-              </option>
-              <option value="dijkstra">Dijkstra</option>
-            </select>
-          </div>
-          <div>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    diagonals = true;
-                  } else if (!e.target.checked) {
-                    diagonals = false;
-                  }
-                }}
-              />
-              <span>Allow diagonals? (only for Astar)</span>
-            </label>
-          </div>
+          <br />
+          <button onClick={resetAll} className="button_res">
+            Reset
+          </button>
         </div>
-        <div className="instructions">
-          Instructions:{" "}
-          <ol>
-            <li>
-              Start by choosing any cell on the grid as the starting node (
-              <span style={{ color: "green" }}>green</span>)
-            </li>
-            <li>
-              Next choose the next cell as the ending node(
-              <span style={{ color: "red" }}>red</span>)
-            </li>
-            <li>
-              Undo the selection by clicking on the start or end node cell
-            </li>
-            <li>
-              After starting and end nodes are selected, you can click and drag
-              to select desired cells as walls (
-              <span style={{ color: "black" }}>black</span>)
-            </li>
-            <li>You can also choose the algorithm to use</li>
-            <li>Click visualize path to begin</li>
-          </ol>
+        <div className="controls-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setStart(false);
+              setEnd(false);
+              NODE_START_ROW = null;
+              NODE_START_COL = null;
+              NODE_END_ROW = null;
+              NODE_END_COL = null;
+              initializeGrid();
+            }}
+          >
+            Cols :{" "}
+            <input
+              type="number"
+              onChange={(e) => setCols(e.target.value)}
+              className="input"
+            />{" "}
+            <div className="divider"></div>
+            Rows:{" "}
+            <input
+              type="number"
+              onChange={(e) => setRows(e.target.value)}
+              className="input"
+            />
+            <button type="submit" className="button_grid">
+              Set Grid
+            </button>
+          </form>
+
+          <div className="dropdown">
+            <div>Algorithm:</div>
+            <div className="select-algo">
+              <select
+                id="algo"
+                className="select-css"
+                onChange={(e) => {
+                  setFormula(e.target.value);
+                }}
+              >
+                <option value="astar" selected>
+                  Astar
+                </option>
+                <option value="dijkstra">Dijkstra</option>
+              </select>
+            </div>
+            <div>
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      diagonals = true;
+                    } else if (!e.target.checked) {
+                      diagonals = false;
+                    }
+                  }}
+                />
+                <span>Allow diagonals? (only for Astar)</span>
+              </label>
+            </div>
+          </div>
+          <div className="instructions">
+            Instructions:{" "}
+            <ol>
+              <li>
+                Start by choosing any cell on the grid as the starting node (
+                <span style={{ color: "green" }}>green</span>)
+              </li>
+              <li>
+                Next choose the next cell as the ending node(
+                <span style={{ color: "red" }}>red</span>)
+              </li>
+              <li>
+                Undo the selection by clicking on the start or end node cell
+              </li>
+              <li>
+                After starting and end nodes are selected, you can click and
+                drag to select desired cells as walls (
+                <span style={{ color: "black" }}>black</span>)
+              </li>
+              <li>You can also choose the algorithm to use</li>
+              <li>Click visualize path to begin</li>
+            </ol>
+          </div>
         </div>
       </div>
       <div className="grid-nodes">{gridWithNode}</div>

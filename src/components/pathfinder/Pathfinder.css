@@ -5,9 +5,10 @@
 }
 
 .Wrapper {
+  display: flex;
   max-width: 100%;
   margin: 0 auto;
-  padding:40px;
+  padding: 40px;
 }
 
 .button_res {
@@ -163,8 +164,7 @@
 }
 
 .grid-nodes {
-  margin: 0 auto;
-  width: 100%;
+  margin: 50px;
 }
 
 .select-css {
@@ -253,5 +253,15 @@ h1 {
     height: 15px;
     width: 15px;
     margin: auto 0;
+  }
+}
+
+@media (max-width: 1600px) {
+  .Wrapper {
+    flex-direction: column;
+  }
+
+  .grid-nodes {
+    margin: 0;
   }
 }
