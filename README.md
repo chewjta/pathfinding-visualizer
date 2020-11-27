@@ -2,8 +2,8 @@
 
 ## Content Page
   * [Description](#description)
+  * [Features](#features) 
   * [Algorithms](#algorithms)
-  * [Features](#features)
   * [Technologies](#technologies)
 
 
@@ -13,18 +13,6 @@
 Welcome to my pathfinding visualizer. I built this application to better understand how pathfinding algorithms work and to see them in action !
 
 To check it out, here's the link: [Pathfinding Visualizer](https://pathfind-alv.netlify.app/)
-
----
-
-
-### Algorithms
-
-Dijkstra's Algorithm: One of the first shortest path first(SPF) algorithm which guarantees the shortest path
-
-A* Search(without diagonals): A modified version of Dijkstra's Algorithm, it uses heuristics(Manhattan) to guarantee the shortest path much faster than Dijkstra's 
-Algorithm
-
-A* Search(with diagonals): Same as above but much faster as it allows diagonal traversals. Uses Euclidean heuristics to guarantee a shorter path. 
 
 ---
 
@@ -45,6 +33,16 @@ A* Search(with diagonals): Same as above but much faster as it allows diagonal t
 
 ---
 
+### Algorithms
+
+Dijkstra's Algorithm: One of the first shortest path first(SPF) algorithm which guarantees the shortest path
+
+A* Search(without diagonals): A modified version of Dijkstra's Algorithm, it uses heuristics(Manhattan) to guarantee the shortest path much faster than Dijkstra's 
+Algorithm
+
+A* Search(with diagonals): Same as above but much faster as it allows diagonal traversals. Uses Euclidean heuristics to guarantee a shorter path. 
+
+---
 
 ### Technologies
 
