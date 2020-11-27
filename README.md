@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Pathfinding Visualizer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Content Page
+  * [Description](#description)
+  * [Algorithms](#algorithms)
+  * [Features](#features)
+  * [Technologies](#technologies)
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+### Description
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Welcome to my pathfinding visualizer. I built this application to better understand how pathfinding algorithms work and to see them in action !
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To check it out, here's the link: [Pathfinding Visualizer](https://pathfind-alv.netlify.app/)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Algorithms
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Dijkstra's Algorithm: the father of pathfinding algorithms; guarantees the shortest path
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+A* Search(without diagonals): A modified version of Dijkstra's Algorithm, it uses heuristics(Manhattan) to guarantee the shortest path much faster than Dijkstra's 
+Algorithm
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A* Search(with diagonals): Same as above but much faster as it allows diagonal traversals. Uses Euclidean heuristics to guarantee a shorter path. 
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+##### App Demo:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![demo1](misc/casit_1.gif)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![demo2](misc/caseit_2.gif)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. User sign up/ sign in (Auth)
+2. One click add to basket / remove from basket (Using Redux)
+3. Redux state persist using redux-persist
+4. Live search using Fuse.js
+5. Payment enabled using Stripe.js API
+6. Database storage of user's order history using Firebase Functions
+7. Mobile Responsive 
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Technologies
 
-### Making a Progressive Web App
+##### ReactJS/Redux
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. React Routers for accessing different pages, i.e. signin/signout page, home page, payment page, checkout page etc.  
+2. React Hooks
+3. Redux for state management and creating actions such as adding item to basket, removing item from basket, clearing basket
 
-### Advanced Configuration
+##### Firebase / NodeJS/ Express
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Firebase for authentication
+2. Firestore for items database storage
+3. Firebase functions with NodeJS/Express to store user's order history in Firestore. 
 
-### Deployment
+##### Misc.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Fuse.js (Live keyword search feature)
+2. Stripe.js (enable payment for products in basket)
+3. Mobile Responsiveness using CSS media queries
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
